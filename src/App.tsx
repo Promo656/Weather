@@ -1,15 +1,13 @@
 import React from 'react';
 import './App.css';
-import {AllDegreePerHour} from "./UI/AllDegreePerHour/AllDegreePerHour";
-import {AllDegreePerWeek} from "./UI/AllDegreePerWeek/AllDegreePerWeek";
 import HeaderContainer from "./UI/Header/HeaderContainer";
 import {StateType} from "./BLL/Redux/redux-store";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {SetInitializedTC} from "./BLL/Redux/AppReducer";
 import AdditionalInformationContainer from "./UI/AdditionalInformation/AdditionalInformationContainer";
-import {Paper} from "@material-ui/core";
-
+import AllDegreePerHourContainer from "./UI/AllDegreePerHour/AllDegreePerHourContainer";
+import AllDegreePerWeekContainer from "./UI/AllDegreePerWeek/AllDegreePerWeekContainer";
 
 type MSTP = {
     initialized: boolean
@@ -32,14 +30,11 @@ class App extends React.Component<AppPropsType> {
         }
 
         return (
-            <div>
+            <div className="app">
                 <HeaderContainer/>
-                <Paper elevation={4} style={{margin: "0 10px"}}>
-                    <AllDegreePerHour/>
-                    <AllDegreePerWeek/>
-                    <AdditionalInformationContainer/>
-                </Paper>
-
+                <AllDegreePerHourContainer/>
+                <AllDegreePerWeekContainer/>
+                <AdditionalInformationContainer/>
             </div>
         )
     }

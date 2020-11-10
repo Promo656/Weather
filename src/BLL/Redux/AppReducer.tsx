@@ -1,4 +1,5 @@
 import {GetDataTC} from "./WeatherReducer";
+import {StateType} from "./redux-store";
 
 type AppActionType = SetInitializedType
 

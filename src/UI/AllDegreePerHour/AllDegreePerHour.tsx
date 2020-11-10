@@ -1,18 +1,20 @@
-import {SingleDegree} from "./SingleDegree/SingleDegree";
 import React from "react";
 import s from "./AllDegreePerHour.module.scss"
+import {Weather_Hourly_ObjectType} from "../../BLL/Redux/WeatherReducer";
+import {SingleDegree} from "./SingleDegree/SingleDegree";
+import {Paper} from "@material-ui/core";
 
-export function AllDegreePerHour() {
+type AllDegreePerHourPropsType = {
+    hourly: Weather_Hourly_ObjectType[]
+}
+
+export function AllDegreePerHour(props: AllDegreePerHourPropsType) {
     return (
         <div className={s.wrap}>
-
-            <SingleDegree/>
-            <SingleDegree/>
-            <SingleDegree/>
-            <SingleDegree/>
-            <SingleDegree/>
-            <SingleDegree/>
-            <SingleDegree/>
+            {props.hourly.map((el) => <Paper style={{margin: "5px"}}><SingleDegree hourly={el}/> </Paper>)}
         </div>
+
+
+
     )
 }

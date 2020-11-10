@@ -1,7 +1,8 @@
 import {Dispatch} from "redux";
 import {userAPI} from "../../DAL/API/api";
+import {StateType} from "./redux-store";
 
-type AppActionType = GetDataType
+type AppActionType = GetDataType | TransformDataAT
 
 const initialStateAll: WeatherTypeAll = {
     "lat": 0,
@@ -66,7 +67,7 @@ type Weather_Minutely_ObjectType = {
     "precipitation": number
 }
 
-type Weather_Hourly_ObjectType = {
+export type Weather_Hourly_ObjectType = {
     "dt": number
     "temp": number
     "feels_like": number
@@ -78,9 +79,8 @@ type Weather_Hourly_ObjectType = {
     "wind_speed": number
     "wind_deg": number
     "pop": number
-    "weather": Weather_Hourly_Object_WeatherType[]
+    "weather": Weather_Hourly_Object_Weather_ObjectType[]
 }
-type Weather_Hourly_Object_WeatherType = Weather_Hourly_Object_Weather_ObjectType[]
 type Weather_Hourly_Object_Weather_ObjectType = {
     "id": number
     "main": string
@@ -88,7 +88,7 @@ type Weather_Hourly_Object_Weather_ObjectType = {
     "icon": string
 }
 
-type Weather_Daily_ObjectType = {
+export type Weather_Daily_ObjectType = {
     "dt": number
     "sunrise": number
     "sunset": number
@@ -132,6 +132,7 @@ export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: 
         case "GET_DATA": {
             return {
                 ...state,
+                //current: {...state.current, weather: state.current.weather.map(w => w.id === action.id ? {...w, main: '123'} : w)}
                 lat: action.payload.lat,
                 lon: action.payload.lon,
                 timezone: action.payload.timezone,
@@ -140,6 +141,12 @@ export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: 
                 minutely: action.payload.minutely,
                 hourly: action.payload.hourly,
                 daily: action.payload.daily
+            }
+        }
+        case "TRANSFORM_DATA":{
+            return {
+                ...state,
+                current:{...state.current }
             }
         }
         default:
@@ -156,8 +163,19 @@ export const GetDataAC = (payload: WeatherTypeAll): GetDataType => ({
     type: GET_DATA,
     payload: payload
 })
+//--------------------------------------TRANSFORM-DATA-AC-------------------------------
+const TRANSFORM_DATA = "TRANSFORM_DATA"
+export type TransformDataAT = {
+    type: typeof TRANSFORM_DATA
+    payload: WeatherTypeAll
+}
+export const transformDataAC = (payload: WeatherTypeAll): TransformDataAT => ({
+    type: TRANSFORM_DATA,
+    payload: payload
+})
 //--------------------------------------GET-DATA-TC-------------------------------
 export const GetDataTC = () => async (dispatch: Dispatch) => {
     let response = await userAPI.getCurrentWeather()
     dispatch(GetDataAC(response))
+
 }

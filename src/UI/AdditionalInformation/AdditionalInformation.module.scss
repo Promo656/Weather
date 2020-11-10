@@ -1,4 +1,18 @@
-.wrap{
+.wrap {
   display: flex;
   justify-content: space-around;
+}
+
+.blockWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.singleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
 }
