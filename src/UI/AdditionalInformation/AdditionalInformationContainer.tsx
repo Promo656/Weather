@@ -2,7 +2,6 @@ import React from "react";
 import {AdditionalInformation} from "./AdditionalInformation";
 import {StateType} from "../../BLL/Redux/redux-store";
 import {connect} from "react-redux";
-import {Paper} from "@material-ui/core";
 
 type MSTP = {
     speed: number

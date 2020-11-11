@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import s from './App.module.scss';
 import HeaderContainer from "./UI/Header/HeaderContainer";
 import {StateType} from "./BLL/Redux/redux-store";
 import {compose} from "redux";
@@ -30,7 +30,7 @@ class App extends React.Component<AppPropsType> {
         }
 
         return (
-            <div className="app">
+            <div className={s.app}>
                 <HeaderContainer/>
                 <AllDegreePerHourContainer/>
                 <AllDegreePerWeekContainer/>

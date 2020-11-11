@@ -1,5 +1,5 @@
 import {GetDataTC} from "./WeatherReducer";
-import {StateType} from "./redux-store";
+import {Dispatch} from "redux";
 
 type AppActionType = SetInitializedType
 
@@ -11,7 +11,7 @@ const initialState: initialStateType = {
     initialized: false
 }
 
-export const AppReducer = (state: initialStateType = initialState, action: AppActionType) => {
+export const AppReducer = (state: initialStateType = initialState, action: AppActionType):initialStateType => {
     switch (action.type) {
         case "SET_INITIALIZED": {
             return {
@@ -32,7 +32,7 @@ export const SetInitializedAC = (): SetInitializedType => ({
     type: SET_INITIALIZED
 })
 //--------------------------------------SET-INITIALIZED-TC-------------------------------
-export const SetInitializedTC = () =>(dispatch: any) => {
+export const SetInitializedTC = () =>(dispatch: Dispatch<any>) => {
     dispatch(GetDataTC())
     dispatch(SetInitializedAC())
 }

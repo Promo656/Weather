@@ -11,7 +11,7 @@ type AllDegreePerWeekPropsType = {
 export function AllDegreePerWeek(props: AllDegreePerWeekPropsType) {
     return (
         <div className={s.wrap}>
-            {props.daily.map(el => <Paper style={{margin:"5px"}}><DegreePerDay daily={el}/></Paper>)}
+            {props.daily.map((el,id) => <Paper key={id} style={{margin:"5px"}}><DegreePerDay daily={el}/></Paper>)}
         </div>
     )
 }

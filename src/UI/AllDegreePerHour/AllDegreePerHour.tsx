@@ -11,7 +11,7 @@ type AllDegreePerHourPropsType = {
 export function AllDegreePerHour(props: AllDegreePerHourPropsType) {
     return (
         <div className={s.wrap}>
-            {props.hourly.map((el) => <Paper style={{margin: "5px"}}><SingleDegree hourly={el}/> </Paper>)}
+            {props.hourly.map((el, id) => <Paper key={id} style={{margin: "5px"}}><SingleDegree hourly={el}/> </Paper>)}
         </div>
 
 

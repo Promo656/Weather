@@ -6,6 +6,7 @@ import {Paper} from "@material-ui/core";
 
 type MSTP = {
     name: string
+    weekday: string
     description: string
     temp: number
     icon: string
@@ -19,6 +20,7 @@ class HeaderContainer extends React.Component<any> {
             <Paper style={{margin: "5px"}}>
                 <Header
                     name={this.props.name}
+                    weekday={this.props.weekday}
                     description={this.props.description}
                     temp={this.props.temp}
                     icon={this.props.icon}
@@ -30,6 +32,7 @@ class HeaderContainer extends React.Component<any> {
 
 const mapStateToProps = (state: StateType) => ({
     name: state.weather.timezone,
+    weekday: state.weather.current.dt,
     description: state.weather.current.weather.map(el => el.description),
     temp: state.weather.current.temp,
     icon: state.weather.current.weather.map(el => el.icon)

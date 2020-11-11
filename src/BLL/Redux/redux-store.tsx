@@ -1,4 +1,3 @@
-import React from "react";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {AppReducer} from "./AppReducer";
 import {WeatherReducer} from "./WeatherReducer";

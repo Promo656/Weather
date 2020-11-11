@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {userAPI} from "../../DAL/API/api";
-import {StateType} from "./redux-store";
+import {convertToReadableTime} from "../../Utilities/Utilities";
 
 type AppActionType = GetDataType | TransformDataAT
 
@@ -10,7 +10,7 @@ const initialStateAll: WeatherTypeAll = {
     "timezone": "",
     "timezone_offset": 0,
     "current": {
-        "dt": 0,
+        "dt": "",
         "sunrise": 0,
         "sunset": 0,
         "temp": 0,
@@ -29,6 +29,7 @@ const initialStateAll: WeatherTypeAll = {
     "hourly": [],
     "daily": []
 }
+
 export type WeatherTypeAll = {
     "lat": number
     "lon": number
@@ -40,7 +41,7 @@ export type WeatherTypeAll = {
     "daily": Weather_Daily_ObjectType[]
 }
 type Weather_currentType = {
-    "dt": number
+    "dt": string
     "sunrise": number
     "sunset": number
     "temp": number
@@ -127,9 +128,10 @@ type Weather_Daily_Object_Weather_ObjectType = {
 }
 
 
-export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: AppActionType) => {
+export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: AppActionType): WeatherTypeAll => {
     switch (action.type) {
         case "GET_DATA": {
+
             return {
                 ...state,
                 //current: {...state.current, weather: state.current.weather.map(w => w.id === action.id ? {...w, main: '123'} : w)}
@@ -137,16 +139,16 @@ export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: 
                 lon: action.payload.lon,
                 timezone: action.payload.timezone,
                 timezone_offset: action.payload.timezone_offset,
-                current: {...action.payload.current},
+                current: {...action.payload.current, dt: convertToReadableTime(+action.payload.current.dt, 'weekday')},
                 minutely: action.payload.minutely,
-                hourly: action.payload.hourly,
+                hourly: [...action.payload.hourly, ],
+                /*hourly: action.payload.hourly,*/
                 daily: action.payload.daily
             }
         }
-        case "TRANSFORM_DATA":{
+        case "TRANSFORM_DATA": {
             return {
                 ...state,
-                current:{...state.current }
             }
         }
         default:
@@ -167,11 +169,11 @@ export const GetDataAC = (payload: WeatherTypeAll): GetDataType => ({
 const TRANSFORM_DATA = "TRANSFORM_DATA"
 export type TransformDataAT = {
     type: typeof TRANSFORM_DATA
-    payload: WeatherTypeAll
+    time: WeatherTypeAll
 }
-export const transformDataAC = (payload: WeatherTypeAll): TransformDataAT => ({
+export const TransformDataAC = (time: WeatherTypeAll): TransformDataAT => ({
     type: TRANSFORM_DATA,
-    payload: payload
+    time: time
 })
 //--------------------------------------GET-DATA-TC-------------------------------
 export const GetDataTC = () => async (dispatch: Dispatch) => {
