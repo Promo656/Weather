@@ -142,7 +142,6 @@ export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: 
                 current: {...action.payload.current, dt: convertToReadableTime(+action.payload.current.dt, 'weekday')},
                 minutely: action.payload.minutely,
                 hourly: [...action.payload.hourly, ],
-                /*hourly: action.payload.hourly,*/
                 daily: action.payload.daily
             }
         }
@@ -179,5 +178,4 @@ export const TransformDataAC = (time: WeatherTypeAll): TransformDataAT => ({
 export const GetDataTC = () => async (dispatch: Dispatch) => {
     let response = await userAPI.getCurrentWeather()
     dispatch(GetDataAC(response))
-
 }
