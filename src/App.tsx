@@ -21,7 +21,7 @@ type AppPropsType = MDTP & MSTP
 
 class App extends React.Component<AppPropsType> {
     componentDidMount() {
-        this.props.SetInitializedTC()
+        this.props.SetInitializedTC(this.props)
     }
 
     render() {
@@ -30,7 +30,7 @@ class App extends React.Component<AppPropsType> {
         }
 
         return (
-            <div className={s.app}>
+            <div className={s.app} style={{background:"red"}}>
                 <HeaderContainer/>
                 <AllDegreePerHourContainer/>
                 <AllDegreePerWeekContainer/>
