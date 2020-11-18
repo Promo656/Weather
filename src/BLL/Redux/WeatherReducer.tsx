@@ -131,7 +131,6 @@ type Weather_Daily_Object_Weather_ObjectType = {
 export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: AppActionType): WeatherTypeAll => {
     switch (action.type) {
         case "GET_DATA": {
-
             return {
                 ...state,
                 //current: {...state.current, weather: state.current.weather.map(w => w.id === action.id ? {...w, main: '123'} : w)}
