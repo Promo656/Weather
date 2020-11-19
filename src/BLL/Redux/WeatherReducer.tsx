@@ -143,6 +143,14 @@ export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: 
                 hourly: [...action.payload.hourly, ],
                 daily: action.payload.daily
             }
+           /* lat: action.payload.lat,
+                lon: action.payload.lon,
+                timezone: action.payload.timezone,
+                timezone_offset: action.payload.timezone_offset,
+                current: {...action.payload.current, dt: convertToReadableTime(+action.payload.current.dt, 'weekday')},
+            minutely: action.payload.minutely,
+                hourly: [...action.payload.hourly, ],
+                daily: action.payload.daily*/
         }
         case "TRANSFORM_DATA": {
             return {
