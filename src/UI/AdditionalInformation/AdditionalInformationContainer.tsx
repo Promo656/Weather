@@ -8,8 +8,8 @@ type MSTP = {
     pressure: number
     feels_like: number
     humidity: number
-    sunrise: number
-    sunset: number
+    sunrise: string
+    sunset: string
 }
 
 type AdditionalInformationContainerPropsType = MSTP

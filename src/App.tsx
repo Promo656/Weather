@@ -8,9 +8,11 @@ import {SetInitializedTC} from "./BLL/Redux/AppReducer";
 import AdditionalInformationContainer from "./UI/AdditionalInformation/AdditionalInformationContainer";
 import AllDegreePerHourContainer from "./UI/AllDegreePerHour/AllDegreePerHourContainer";
 import AllDegreePerWeekContainer from "./UI/AllDegreePerWeek/AllDegreePerWeekContainer";
+import brokenClouds from "./UI/bg/brokenClouds.jpg"
 
 type MSTP = {
     initialized: boolean
+    icon:string
 }
 
 type MDTP = {
@@ -21,7 +23,7 @@ type AppPropsType = MDTP & MSTP
 
 class App extends React.Component<AppPropsType> {
     componentDidMount() {
-        this.props.SetInitializedTC(this.props)
+        this.props.SetInitializedTC()
     }
 
     render() {
@@ -30,7 +32,7 @@ class App extends React.Component<AppPropsType> {
         }
 
         return (
-            <div className={s.app} style={{background:"red"}}>
+            <div className={s.app}>
                 <HeaderContainer/>
                 <AllDegreePerHourContainer/>
                 <AllDegreePerWeekContainer/>
@@ -41,7 +43,8 @@ class App extends React.Component<AppPropsType> {
 }
 
 const mapStateToProps = (state: StateType) => ({
-    initialized: state.app.initialized
+    initialized: state.app.initialized,
+    icon: state.app.dayIcon
 })
 
 export default compose(

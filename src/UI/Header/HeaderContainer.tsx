@@ -17,7 +17,7 @@ type HeaderContainerPropsType = MSTP
 class HeaderContainer extends React.Component<any> {
     render() {
         return (
-            <Paper style={{margin: "5px"}}>
+            <div style={{margin: "5px"}}>
                 <Header
                     name={this.props.name}
                     weekday={this.props.weekday}
@@ -25,7 +25,7 @@ class HeaderContainer extends React.Component<any> {
                     temp={this.props.temp}
                     icon={this.props.icon}
                 />
-            </Paper>
+            </div>
         )
     }
 }

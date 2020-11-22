@@ -7,8 +7,8 @@ type AdditionalInformationPropsType={
     pressure: number
     feels_like: number
     humidity: number
-    sunrise:number
-    sunset:number
+    sunrise:string
+    sunset:string
 }
 
 export function AdditionalInformation(props:AdditionalInformationPropsType) {

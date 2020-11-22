@@ -2,6 +2,7 @@ import {GetDataTC} from "./WeatherReducer";
 import {Dispatch} from "redux";
 import {StateType} from "./redux-store";
 
+
 type AppActionType = SetInitializedType | SetBackgroundPhotoAT
 
 type initialStateType = {
@@ -16,16 +17,16 @@ const initialState: initialStateType = {
 
 export const AppReducer = (state: initialStateType = initialState, action: AppActionType): initialStateType => {
     switch (action.type) {
-        case "SET_INITIALIZED": {
+        case SET_INITIALIZED: {
             return {
                 ...state,
                 initialized: true
             }
         }
-        case "SET_BACKGROUND_PHOTO":{
+        case SET_BACKGROUND_PHOTO: {
             return {
                 ...state,
-                dayIcon:action.id
+                dayIcon: action.icon
             }
         }
         default:
@@ -44,17 +45,19 @@ export const SetInitializedAC = (): SetInitializedType => ({
 const SET_BACKGROUND_PHOTO = "SET_BACKGROUND_PHOTO"
 export type SetBackgroundPhotoAT = {
     type: typeof SET_BACKGROUND_PHOTO
-    id: string
+    icon: string
 }
-export const SetBackgroundPhotoAC = (id: string): SetBackgroundPhotoAT => ({
+export const SetBackgroundPhotoAC = (icon: string): SetBackgroundPhotoAT => ({
     type: SET_BACKGROUND_PHOTO,
-    id: id
+    icon: icon
 })
 //--------------------------------------SET-INITIALIZED-TC-------------------------------
-export const SetInitializedTC = (state: StateType) => (dispatch: Dispatch<any>) => {
-    dispatch(GetDataTC())
+export const SetInitializedTC = () => async (dispatch: Dispatch<any>, getState: () => StateType) => {
+    await dispatch(GetDataTC())
 
-    dispatch(SetBackgroundPhotoAC(state.weather.current.weather[0].icon))
+    let dayIcon = getState().weather.current.weather[0].icon
 
-    dispatch(SetInitializedAC())
+    await dispatch(SetBackgroundPhotoAC(dayIcon))
+
+    await dispatch(SetInitializedAC())
 }

@@ -2,33 +2,7 @@ import {Dispatch} from "redux";
 import {userAPI} from "../../DAL/API/api";
 import {convertToReadableTime} from "../../Utilities/Utilities";
 
-type AppActionType = GetDataType | TransformDataAT
-
-const initialStateAll: WeatherTypeAll = {
-    "lat": 0,
-    "lon": 0,
-    "timezone": "",
-    "timezone_offset": 0,
-    "current": {
-        "dt": "",
-        "sunrise": 0,
-        "sunset": 0,
-        "temp": 0,
-        "feels_like": 0,
-        "pressure": 0,
-        "humidity": 0,
-        "dew_point": 0,
-        "uvi": 0,
-        "clouds": 0,
-        "visibility": 0,
-        "wind_speed": 0,
-        "wind_deg": 0,
-        "weather": []
-    },
-    "minutely": [],
-    "hourly": [],
-    "daily": []
-}
+type AppActionType = GetDataType
 
 export type WeatherTypeAll = {
     "lat": number
@@ -42,8 +16,8 @@ export type WeatherTypeAll = {
 }
 type Weather_currentType = {
     "dt": string
-    "sunrise": number
-    "sunset": number
+    "sunrise": string
+    "sunset": string
     "temp": number
     "feels_like": number
     "pressure": number
@@ -127,36 +101,51 @@ type Weather_Daily_Object_Weather_ObjectType = {
     "icon": string
 }
 
+const initialStateAll: WeatherTypeAll = {
+    lat: 0,
+    lon: 0,
+    timezone: "",
+    timezone_offset: 0,
+    current: {
+        dt: "",
+        sunrise: "",
+        sunset: "",
+        temp: 0,
+        feels_like: 0,
+        pressure: 0,
+        humidity: 0,
+        dew_point: 0,
+        uvi: 0,
+        clouds: 0,
+        visibility: 0,
+        wind_speed: 0,
+        wind_deg: 0,
+        weather: []
+    },
+    minutely: [],
+    hourly: [],
+    daily: []
+}
 
 export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: AppActionType): WeatherTypeAll => {
     switch (action.type) {
         case "GET_DATA": {
             return {
                 ...state,
-                //current: {...state.current, weather: state.current.weather.map(w => w.id === action.id ? {...w, main: '123'} : w)}
-                lat: action.payload.lat,
-                lon: action.payload.lon,
-                timezone: action.payload.timezone,
-                timezone_offset: action.payload.timezone_offset,
-                current: {...action.payload.current, dt: convertToReadableTime(+action.payload.current.dt, 'weekday')},
-                minutely: action.payload.minutely,
-                hourly: [...action.payload.hourly, ],
-                daily: action.payload.daily
-            }
-           /* lat: action.payload.lat,
-                lon: action.payload.lon,
-                timezone: action.payload.timezone,
-                timezone_offset: action.payload.timezone_offset,
-                current: {...action.payload.current, dt: convertToReadableTime(+action.payload.current.dt, 'weekday')},
-            minutely: action.payload.minutely,
-                hourly: [...action.payload.hourly, ],
-                daily: action.payload.daily*/
-        }
-        case "TRANSFORM_DATA": {
-            return {
-                ...state,
+                ...action.payload,
+                current: {
+                    ...action.payload.current,
+                    dt: convertToReadableTime(action.payload.current.dt, "weekday"),
+                    sunrise: convertToReadableTime(action.payload.current.sunrise, "hour"),
+                    sunset: convertToReadableTime(action.payload.current.sunset, "hour")
+                },
+                daily: [
+                    ...action.payload.daily,
+
+                ]
             }
         }
+
         default:
             return state
     }
@@ -170,16 +159,6 @@ export type GetDataType = {
 export const GetDataAC = (payload: WeatherTypeAll): GetDataType => ({
     type: GET_DATA,
     payload: payload
-})
-//--------------------------------------TRANSFORM-DATA-AC-------------------------------
-const TRANSFORM_DATA = "TRANSFORM_DATA"
-export type TransformDataAT = {
-    type: typeof TRANSFORM_DATA
-    time: WeatherTypeAll
-}
-export const TransformDataAC = (time: WeatherTypeAll): TransformDataAT => ({
-    type: TRANSFORM_DATA,
-    time: time
 })
 //--------------------------------------GET-DATA-TC-------------------------------
 export const GetDataTC = () => async (dispatch: Dispatch) => {
