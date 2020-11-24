@@ -11,7 +11,7 @@ export function DegreePerDay(props:DegreePerDayPropsType) {
         <div className={s.wrap}>
             <div>{props.daily.dt}</div>
             <img src={`http://openweathermap.org/img/wn/${props.daily.weather.map(el=>el.icon)}.png`} alt=""/>
-            <div>{props.daily.temp.day}</div>
+            <div>{props.daily.temp.day} &#176;C</div>
         </div>
     )
 }

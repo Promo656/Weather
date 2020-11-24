@@ -1,5 +1,5 @@
 export const convertToReadableTime = (time: string, value: string) => {
-    const milliseconds = +time * 1000
+    const milliseconds = +time * 1000 //1606067178
     const dateObject = new Date(milliseconds)
     const weekday = dateObject.toLocaleString("ru", {weekday: "long"})
     const day = dateObject.toLocaleString("ru", {day: "numeric"})
@@ -18,7 +18,12 @@ export const convertToReadableTime = (time: string, value: string) => {
         return getTime.day
     }
     if (value === 'hour') {
+        return getTime.hour
+    }
+    if (value === 'hour+minute') {
         return `${getTime.hour}:${getTime.minute}`
     }
+
     return "Something wrong"
 }
+

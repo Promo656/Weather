@@ -8,7 +8,8 @@ import {SetInitializedTC} from "./BLL/Redux/AppReducer";
 import AdditionalInformationContainer from "./UI/AdditionalInformation/AdditionalInformationContainer";
 import AllDegreePerHourContainer from "./UI/AllDegreePerHour/AllDegreePerHourContainer";
 import AllDegreePerWeekContainer from "./UI/AllDegreePerWeek/AllDegreePerWeekContainer";
-import brokenClouds from "./UI/bg/brokenClouds.jpg"
+import {ComboBox} from "./UI/AutoComlite";
+import {userAPI} from "./DAL/API/api";
 
 type MSTP = {
     initialized: boolean
@@ -30,17 +31,23 @@ class App extends React.Component<AppPropsType> {
         if (!this.props.initialized) {
             return "Loading"
         }
-
+let getdata=()=>{
+            userAPI.getCoordinate()
+}
         return (
             <div className={s.app}>
+                {/*<ComboBox/>*/}
                 <HeaderContainer/>
                 <AllDegreePerHourContainer/>
                 <AllDegreePerWeekContainer/>
                 <AdditionalInformationContainer/>
+                <button onClick={getdata}>X</button>
             </div>
         )
     }
 }
+
+
 
 const mapStateToProps = (state: StateType) => ({
     initialized: state.app.initialized,

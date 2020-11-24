@@ -15,7 +15,7 @@ export function Header(props: HeaderPropsType) {
             <div>{props.name}</div>
             <div>{props.weekday}</div>
             <div>{props.description}</div>
-            <div>{props.temp}</div>
+            <div>{props.temp} &#176;C</div>
             <img src={`http://openweathermap.org/img/wn/${props.icon}@2x.png`} alt=""/>
         </div>
     )

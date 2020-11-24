@@ -37,7 +37,7 @@ export function AdditionalInformation(props:AdditionalInformationPropsType) {
                 </div>
                 <div className={s.singleBlock}>
                     <span>feels like</span>
-                    <div>{props.feels_like}</div>
+                    <div>{props.feels_like} &#176;C</div>
                 </div>
                 <div className={s.singleBlock}>
                     <span>humidity</span>

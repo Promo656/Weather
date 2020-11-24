@@ -43,7 +43,7 @@ type Weather_Minutely_ObjectType = {
 }
 
 export type Weather_Hourly_ObjectType = {
-    "dt": number
+    "dt": string
     "temp": number
     "feels_like": number
     "pressure": number
@@ -64,9 +64,9 @@ type Weather_Hourly_Object_Weather_ObjectType = {
 }
 
 export type Weather_Daily_ObjectType = {
-    "dt": number
-    "sunrise": number
-    "sunset": number
+    "dt": string
+    "sunrise": string
+    "sunset": string
     "pressure": number
     "humidity": number
     "dew_point": number
@@ -136,13 +136,17 @@ export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: 
                 current: {
                     ...action.payload.current,
                     dt: convertToReadableTime(action.payload.current.dt, "weekday"),
-                    sunrise: convertToReadableTime(action.payload.current.sunrise, "hour"),
-                    sunset: convertToReadableTime(action.payload.current.sunset, "hour")
+                    sunrise: convertToReadableTime(action.payload.current.sunrise, "hour+minute"),
+                    sunset: convertToReadableTime(action.payload.current.sunset, "hour+minute")
                 },
-                daily: [
-                    ...action.payload.daily,
-
-                ]
+                daily: action.payload.daily.map(day => ({
+                    ...day,
+                    dt: convertToReadableTime(day.dt, "weekday"),
+                })),
+                hourly: action.payload.hourly.map(hour => ({
+                    ...hour,
+                    dt: convertToReadableTime(hour.dt, "hour")
+                }))
             }
         }
 

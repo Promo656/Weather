@@ -11,7 +11,7 @@ export function SingleDegree(props:SingleDegreePropsType) {
         <span className={s.singleDegree}>
             <div>{props.hourly.dt}</div>
             <img src={`http://openweathermap.org/img/wn/${props.hourly.weather[0].icon}.png`} alt=""/>
-            <div>{props.hourly.temp}</div>
+            <div>{props.hourly.temp} &#176;C</div>
         </span>
     )
 }
