@@ -1,19 +1,19 @@
 import React from 'react';
 import s from './App.module.scss';
-import HeaderContainer from "./UI/Header/HeaderContainer";
-import {StateType} from "./BLL/Redux/redux-store";
-import {compose} from "redux";
-import {connect} from "react-redux";
-import {SetInitializedTC} from "./BLL/Redux/AppReducer";
-import AdditionalInformationContainer from "./UI/AdditionalInformation/AdditionalInformationContainer";
-import AllDegreePerHourContainer from "./UI/AllDegreePerHour/AllDegreePerHourContainer";
-import AllDegreePerWeekContainer from "./UI/AllDegreePerWeek/AllDegreePerWeekContainer";
-import {ComboBox} from "./UI/AutoComlite";
-import {userAPI} from "./DAL/API/api";
+import HeaderContainer from './UI/Header/HeaderContainer';
+import {StateType} from './BLL/Redux/redux-store';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {SetInitializedTC} from './BLL/Redux/AppReducer';
+import AdditionalInformationContainer from './UI/AdditionalInformation/AdditionalInformationContainer';
+import AllDegreePerHourContainer from './UI/AllDegreePerHour/AllDegreePerHourContainer';
+import AllDegreePerWeekContainer from './UI/AllDegreePerWeek/AllDegreePerWeekContainer';
+import {ComboBox} from './UI/AutoComlite';
+import {userAPI} from './DAL/API/api';
 
 type MSTP = {
     initialized: boolean
-    icon:string
+    icon: string
 }
 
 type MDTP = {
@@ -29,24 +29,27 @@ class App extends React.Component<AppPropsType> {
 
     render() {
         if (!this.props.initialized) {
-            return "Loading"
+            return 'Loading'
         }
-let getdata=()=>{
-            userAPI.getCoordinate()
-}
         return (
             <div className={s.app}>
-                {/*<ComboBox/>*/}
+                <div className={s.dropdown}>
+                    <button className={s.dropbtn}>Menu</button>
+                    <div className={s.dropdownContent}>
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>
+
                 <HeaderContainer/>
                 <AllDegreePerHourContainer/>
                 <AllDegreePerWeekContainer/>
                 <AdditionalInformationContainer/>
-                <button onClick={getdata}>X</button>
             </div>
         )
     }
 }
-
 
 
 const mapStateToProps = (state: StateType) => ({

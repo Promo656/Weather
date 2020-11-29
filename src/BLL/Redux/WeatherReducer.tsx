@@ -129,7 +129,7 @@ const initialStateAll: WeatherTypeAll = {
 
 export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: AppActionType): WeatherTypeAll => {
     switch (action.type) {
-        case "GET_DATA": {
+        case GET_DATA: {
             return {
                 ...state,
                 ...action.payload,
@@ -143,7 +143,7 @@ export const WeatherReducer = (state: WeatherTypeAll = initialStateAll, action: 
                     ...day,
                     dt: convertToReadableTime(day.dt, "weekday"),
                 })),
-                hourly: action.payload.hourly.map(hour => ({
+                hourly: action.payload.hourly.map((hour) => ({
                     ...hour,
                     dt: convertToReadableTime(hour.dt, "hour")
                 }))
