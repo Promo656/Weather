@@ -15,13 +15,13 @@ const middleware = getDefaultMiddleware({
     thunk: true,
 })
 
-export const store = configureStore({
+/*export const store = configureStore({
     reducer: {...reducers},
     middleware,
     devTools: process.env.NODE_ENV !== "production"
-})
+})*/
 
-//export const store=createStore(reducers, applyMiddleware(thunkMiddleware))
+export const store=createStore(reducers, applyMiddleware(thunkMiddleware))
 export type StateType = ReturnType<typeof reducers>
 
 // @ts-ignore

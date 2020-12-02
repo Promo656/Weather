@@ -1,6 +1,7 @@
 import {GetDataTC} from "./WeatherReducer";
 import {Dispatch} from "redux";
 import {StateType} from "./redux-store";
+import {createAction} from '@reduxjs/toolkit';
 
 
 type AppActionType = SetInitializedType | SetBackgroundPhotoAT
