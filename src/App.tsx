@@ -33,14 +33,29 @@ class App extends React.Component<AppPropsType> {
         }
         return (
             <div className={s.app}>
-                <div className={s.dropdown}>
-                    <button className={s.dropbtn}>Menu</button>
-                    <div className={s.dropdownContent}>
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </div>
+                <nav className={s.dws_menu}>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i className="fa fa-caret-down" aria-hidden="true"></i>Social Network
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i className="fa fa-caret-down" aria-hidden="true"></i>Messengers
+                            </a>
+                            <ul>
+                                <li><a href="#">Telegram</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">WhatsUp</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">Viber</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
 
                 <HeaderContainer/>
                 <AllDegreePerHourContainer/>
